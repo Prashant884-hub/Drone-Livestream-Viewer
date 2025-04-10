@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Ask for storage permissions if not granted
+        
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED
         ) {
@@ -53,13 +53,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize VLC
+     
         val options = arrayListOf("--no-drop-late-frames", "--no-skip-frames", "--rtsp-tcp")
 
         libVLC = LibVLC(this, options)
         mediaPlayer = MediaPlayer(libVLC)
 
-        // Attach VLCVideoLayout
+      
         mediaPlayer.attachViews(binding.videoSurface, null, false, false)
 
         binding.playButton.setOnClickListener {
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun playStream(rtspUrl: String, record: Boolean = false, outputPath: String? = null) {
-        val uri = android.net.Uri.parse(rtspUrl)  // <-- Parse properly
+        val uri = android.net.Uri.parse(rtspUrl)  
         val media = Media(libVLC, uri)
 
         media.addOption(":network-caching=150")
@@ -105,10 +105,9 @@ class MainActivity : AppCompatActivity() {
             if (!dir.exists()) dir.mkdirs()
             val file = File(dir, fileName)
 
-            // Stop if already playing
             mediaPlayer.stop()
 
-            // Play again with recording enabled
+    
             playStream(binding.urlInput.text.toString(), true, file.absolutePath)
 
             isRecording = true
@@ -139,7 +138,6 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onPictureInPictureModeChanged(isInPictureInPictureMode, newConfig)
 
-        // Hide everything except video when in PiP
         if (isInPictureInPictureMode) {
             binding.urlInput.visibility = View.GONE
             binding.playButton.visibility = View.GONE
