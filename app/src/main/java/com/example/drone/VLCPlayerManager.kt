@@ -29,7 +29,7 @@ class VlcPackageManager(context: Context) {
         media.addOption(":network-caching=150")
 
         if (outputPath != null) {
-            // This sends the stream to file
+            
             media.addOption(":sout=#file{dst=$outputPath}")
             media.addOption(":sout-keep")
         }
